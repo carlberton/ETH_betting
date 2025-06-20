@@ -3,6 +3,17 @@ pragma solidity ^0.8.0;
 
 contract FootballBetting {
 
+    address private owner;
+
+    constructor() {
+        owner = msg.sender; // Le déployeur devient le propriétaire
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Seul l'admin peut appeler cette fonction");
+        _;
+    }
+
     struct Match {
         uint8 id;
         string homeTeam;
@@ -29,7 +40,7 @@ contract FootballBetting {
         string memory _away,
         string memory _score,
         uint256 _timestamp
-    ) public {
+    )  public onlyOwner {
         require(bytes(matches[_id].homeTeam).length == 0, "Match deja existant");
 
         if (bytes(_score).length == 0) {
