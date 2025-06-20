@@ -77,6 +77,49 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getMyBets",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "amount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint8",
+								"name": "team",
+								"type": "uint8"
+							}
+						],
+						"internalType": "struct FootballBetting.Bet[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_matchId",
+						"type": "string"
+					},
+					{
+						"internalType": "uint8",
+						"name": "_team",
+						"type": "uint8"
+					}
+				],
+				"name": "placeBet",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -107,11 +150,11 @@
 	},
 	"sources": {
 		"server.sol": {
-			"keccak256": "0x4f4be76b4010ea246d687c173ccce086f562260a304c20441e3de5719bd01f70",
+			"keccak256": "0xdadb11e0fdb927dcbc02ced4171be587d0aa8c346914a94607162fa649dd612b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5d407d93334d2963c282116ef5881306f1933221ded90c7413c8b5accd38e987",
-				"dweb:/ipfs/QmdYjD8wsSX4TJJ5vQcMi2Fak7h2n3tjws1AUTdrC9aqUe"
+				"bzz-raw://66f71cae9428e813a831fd6902f8e791c0d0756f16a10f852a02f21e9eeebfc6",
+				"dweb:/ipfs/Qmf9mii397Fo6kPNrrSKHr9YoBmBrzwx4wd75aFi26JP8R"
 			]
 		}
 	},
