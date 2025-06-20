@@ -1,0 +1,119 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_home",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_away",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_score",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_timestamp",
+						"type": "string"
+					}
+				],
+				"name": "createMatch",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getAllMatches",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "id",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "homeTeam",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "awayTeam",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "score",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "startTimestamp",
+								"type": "string"
+							}
+						],
+						"internalType": "struct FootballBetting.Match[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"server.sol": "FootballBetting"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"server.sol": {
+			"keccak256": "0x4f4be76b4010ea246d687c173ccce086f562260a304c20441e3de5719bd01f70",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://5d407d93334d2963c282116ef5881306f1933221ded90c7413c8b5accd38e987",
+				"dweb:/ipfs/QmdYjD8wsSX4TJJ5vQcMi2Fak7h2n3tjws1AUTdrC9aqUe"
+			]
+		}
+	},
+	"version": 1
+}
