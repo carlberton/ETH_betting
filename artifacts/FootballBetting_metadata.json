@@ -8,9 +8,9 @@
 			{
 				"inputs": [
 					{
-						"internalType": "string",
+						"internalType": "uint8",
 						"name": "_id",
-						"type": "string"
+						"type": "uint8"
 					},
 					{
 						"internalType": "string",
@@ -28,9 +28,9 @@
 						"type": "string"
 					},
 					{
-						"internalType": "string",
+						"internalType": "uint256",
 						"name": "_timestamp",
-						"type": "string"
+						"type": "uint256"
 					}
 				],
 				"name": "createMatch",
@@ -45,9 +45,9 @@
 					{
 						"components": [
 							{
-								"internalType": "string",
+								"internalType": "uint8",
 								"name": "id",
-								"type": "string"
+								"type": "uint8"
 							},
 							{
 								"internalType": "string",
@@ -65,9 +65,9 @@
 								"type": "string"
 							},
 							{
-								"internalType": "string",
+								"internalType": "uint256",
 								"name": "startTimestamp",
-								"type": "string"
+								"type": "uint256"
 							}
 						],
 						"internalType": "struct FootballBetting.Match[]",
@@ -106,9 +106,9 @@
 			{
 				"inputs": [
 					{
-						"internalType": "string",
+						"internalType": "uint8",
 						"name": "_matchId",
-						"type": "string"
+						"type": "uint8"
 					},
 					{
 						"internalType": "uint8",
@@ -150,11 +150,11 @@
 	},
 	"sources": {
 		"server.sol": {
-			"keccak256": "0xdadb11e0fdb927dcbc02ced4171be587d0aa8c346914a94607162fa649dd612b",
+			"keccak256": "0x28a4c85d8083de375a26033bd2075015f5b971c16b2fd59bffa08fe73178c408",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://66f71cae9428e813a831fd6902f8e791c0d0756f16a10f852a02f21e9eeebfc6",
-				"dweb:/ipfs/Qmf9mii397Fo6kPNrrSKHr9YoBmBrzwx4wd75aFi26JP8R"
+				"bzz-raw://9d33b46d3dc6722833ac9a9f0225a1c657185e9aed4a485683b10f5aefe11da3",
+				"dweb:/ipfs/QmSbDvMktmgLDtxpC3FoaGR2wwTBDkZdyDD6s3XaVXjp2F"
 			]
 		}
 	},

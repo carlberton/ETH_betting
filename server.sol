@@ -4,60 +4,63 @@ pragma solidity ^0.8.0;
 contract FootballBetting {
 
     struct Match {
-        string id;
+        uint8 id;
         string homeTeam;
         string awayTeam;
         string score;
-        string startTimestamp;
+        uint256 startTimestamp;
     }
 
-    mapping(string => Match) private matches;  // Mapping des matchs
-    string[] private matchIds;  // Tableau des IDs des matchs
+    mapping(uint8 => Match) private matches;           // ID de match => Match
+    uint8[] private matchIds;                          // Liste des IDs des matchs
 
     struct Bet {
-        uint256 amount;   // Somme en ETH mise sur le match
-        uint8 team;       // 1 pour équipe à domicile, 2 pour équipe visiteuse, 0 pour match nul
+        uint256 amount;
+        uint8 team; // 0 = nul, 1 = domicile, 2 = extérieur
     }
 
-     // Mapping pour les paris
-    mapping(string => mapping(address => Bet)) private bets;  // Mapping des paris par ID de match et par adresse d'utilisateur
-    mapping(address => string[]) private userBets;  // Liste des matchIds sur lesquels chaque utilisateur a parié
+    mapping(uint8 => mapping(address => Bet)) private bets;       // matchId => (joueur => Bet)
+    mapping(address => uint8[]) private userBets;                 // joueur => liste de matchIds
 
+    // Créer un match
+    function createMatch(
+        uint8 _id,
+        string memory _home,
+        string memory _away,
+        string memory _score,
+        uint256 _timestamp
+    ) public {
+        require(bytes(matches[_id].homeTeam).length == 0, "Match deja existant");
 
-    // Fonction pour créer un match
-    function createMatch(string memory _id, string memory _home, string memory _away, string memory _score, string memory _timestamp) public {
         if (bytes(_score).length == 0) {
-            _score = "";  
+            _score = "";
         }
-    
-        if (bytes(_timestamp).length == 0) {
-            _timestamp = "";  
-        }
-        
+
         matches[_id] = Match({
             id: _id,
             homeTeam: _home,
             awayTeam: _away,
-            startTimestamp: _timestamp,
-            score: _score
+            score: bytes(_score).length == 0 ? "" : _score,
+            startTimestamp: _timestamp
         });
-        matchIds.push(_id);  
+
+        matchIds.push(_id);
     }
 
-    // Fonction pour obtenir tous les matchs
+    // Récupérer tous les matchs
     function getAllMatches() public view returns (Match[] memory) {
-        Match[] memory allMatches = new Match[](matchIds.length);
-        for (uint256 i = 0; i < matchIds.length; i++) {
-            allMatches[i] = matches[matchIds[i]];  
+        Match[] memory all = new Match[](matchIds.length);
+        for (uint i = 0; i < matchIds.length; i++) {
+            all[i] = matches[matchIds[i]];
         }
-        return allMatches;
+        return all;
     }
 
-    // Fonction pour parier sur un match
-    function placeBet(string memory _matchId, uint8 _team) public payable {
-        
-        require(msg.value > 0, "La mise doit etre positive.");
-        require(_team == 0 || _team == 1 || _team == 2, "Choix invalide d'equipe.");
+    // Parier sur un match
+    function placeBet(uint8 _matchId, uint8 _team) public payable {
+        require(msg.value > 0, "Mise requise");
+        require(_team <= 2, "Choix invalide");
+        require(bytes(matches[_matchId].homeTeam).length != 0, "Match inexistant");
 
         bets[_matchId][msg.sender] = Bet({
             amount: msg.value,
@@ -67,15 +70,13 @@ contract FootballBetting {
         userBets[msg.sender].push(_matchId);
     }
 
-    // Fonction pour voir tous les paris de l'utilisateur
+    // Voir ses propres paris
     function getMyBets() public view returns (Bet[] memory) {
-        string[] memory ids = userBets[msg.sender];
-        Bet[] memory myBets = new Bet[](ids.length);
-        
+        uint8[] memory ids = userBets[msg.sender];
+        Bet[] memory my = new Bet[](ids.length);
         for (uint i = 0; i < ids.length; i++) {
-            myBets[i] = bets[ids[i]][msg.sender];
+            my[i] = bets[ids[i]][msg.sender];
         }
-
-        return myBets;
+        return my;
     }
 }
