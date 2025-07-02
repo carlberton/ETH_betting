@@ -5,3 +5,6 @@ npm init -y
 npm install --save-dev hardhat
 npx hardhat
 npx hardhat node
+
+## TODO
+  Commit reveal scheme to hide other bets ! 
