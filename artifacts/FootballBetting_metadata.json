@@ -14,6 +14,44 @@
 				"inputs": [
 					{
 						"internalType": "uint8",
+						"name": "_matchId",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "_score",
+						"type": "string"
+					}
+				],
+				"name": "addScore",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "closeBetting",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "commissionPercentage",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint8",
 						"name": "_id",
 						"type": "uint8"
 					},
@@ -26,16 +64,6 @@
 						"internalType": "string",
 						"name": "_away",
 						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "_score",
-						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_timestamp",
-						"type": "uint256"
 					}
 				],
 				"name": "createMatch",
@@ -71,13 +99,46 @@
 							},
 							{
 								"internalType": "uint256",
-								"name": "startTimestamp",
+								"name": "totalHomeBets",
 								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "totalAwayBets",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "totalDrawBets",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address[]",
+								"name": "bettors",
+								"type": "address[]"
+							},
+							{
+								"internalType": "bool",
+								"name": "isSettled",
+								"type": "bool"
 							}
 						],
 						"internalType": "struct FootballBetting.Match[]",
 						"name": "",
 						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getBettingState",
+				"outputs": [
+					{
+						"internalType": "enum FootballBetting.BettingState",
+						"name": "",
+						"type": "uint8"
 					}
 				],
 				"stateMutability": "view",
@@ -95,7 +156,7 @@
 								"type": "uint256"
 							},
 							{
-								"internalType": "uint8",
+								"internalType": "enum FootballBetting.MatchOutcome",
 								"name": "team",
 								"type": "uint8"
 							}
@@ -109,6 +170,13 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "openBetting",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint8",
@@ -116,7 +184,7 @@
 						"type": "uint8"
 					},
 					{
-						"internalType": "uint8",
+						"internalType": "enum FootballBetting.MatchOutcome",
 						"name": "_team",
 						"type": "uint8"
 					}
@@ -124,6 +192,20 @@
 				"name": "placeBet",
 				"outputs": [],
 				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "resetMatches",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "settleAllMatches",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
@@ -134,7 +216,11 @@
 		},
 		"userdoc": {
 			"kind": "user",
-			"methods": {},
+			"methods": {
+				"settleAllMatches()": {
+					"notice": "The main settlement function for the owner. Iterates through all matches and settles any that have a score and are not already settled. This is the only function the owner needs to call to trigger all payouts."
+				}
+			},
 			"version": 1
 		}
 	},
@@ -155,11 +241,11 @@
 	},
 	"sources": {
 		"server.sol": {
-			"keccak256": "0x016d1f5311e5c4ad998921cc17df9dd9c4fcef7eccbf39b283040bda87760e19",
+			"keccak256": "0xe6aaeb743cd505479185a3d7512ae98d39d3f82c33155ade9c3cceab55364e2b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://941e508873e9489a3dd1fabfa2e5d6ed83c27a83cb76065f6955f683157e6dd2",
-				"dweb:/ipfs/QmS5cLsYVAzruNgSyCvVtNeRLEQGHo1JcytUttfQGc7H38"
+				"bzz-raw://9dec06c4a8f911656e202e35aa152a383c38c297ac0e6feb39151118a4abe7db",
+				"dweb:/ipfs/QmPXDEBtJr5Vh15AyeZRgYunWxaawbaFVEy6Ko1XLArN7R"
 			]
 		}
 	},
