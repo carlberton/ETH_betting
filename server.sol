@@ -151,6 +151,8 @@ contract FootballBetting {
     // --- Public and Owner Functions ---
 
     function placeBet(uint8 _matchId, MatchOutcome _team) public payable {
+
+        require(bets[_matchId][msg.sender].amount == 0, "You have already placed a bet on this match.");
         require(msg.value > 0, "A bet amount is required");
         require(uint8(_team) <= 2, "Invalid team selection");
         require(bytes(matches[_matchId].homeTeam).length != 0, "Match does not exist");
