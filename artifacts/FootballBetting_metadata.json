@@ -29,8 +29,38 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "closeBetting",
+				"inputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "bettors",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint8",
+						"name": "matchId",
+						"type": "uint8"
+					}
+				],
+				"name": "claim",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -43,6 +73,73 @@
 						"internalType": "uint8",
 						"name": "",
 						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint8",
+						"name": "matchId",
+						"type": "uint8"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "commitHash",
+						"type": "bytes32"
+					}
+				],
+				"name": "commitBet",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "commits",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "commitHash",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "revealed",
+						"type": "bool"
+					},
+					{
+						"internalType": "enum FootballBetting.MatchOutcome",
+						"name": "revealedOutcome",
+						"type": "uint8"
+					},
+					{
+						"internalType": "bool",
+						"name": "isWinner",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "claimed",
+						"type": "bool"
 					}
 				],
 				"stateMutability": "view",
@@ -73,67 +170,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "getAllMatches",
-				"outputs": [
-					{
-						"components": [
-							{
-								"internalType": "uint8",
-								"name": "id",
-								"type": "uint8"
-							},
-							{
-								"internalType": "string",
-								"name": "homeTeam",
-								"type": "string"
-							},
-							{
-								"internalType": "string",
-								"name": "awayTeam",
-								"type": "string"
-							},
-							{
-								"internalType": "string",
-								"name": "score",
-								"type": "string"
-							},
-							{
-								"internalType": "uint256",
-								"name": "totalHomeBets",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "totalAwayBets",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "totalDrawBets",
-								"type": "uint256"
-							},
-							{
-								"internalType": "address[]",
-								"name": "bettors",
-								"type": "address[]"
-							},
-							{
-								"internalType": "bool",
-								"name": "isSettled",
-								"type": "bool"
-							}
-						],
-						"internalType": "struct FootballBetting.Match[]",
-						"name": "",
-						"type": "tuple[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "getBettingState",
+				"name": "currentBettingState",
 				"outputs": [
 					{
 						"internalType": "enum FootballBetting.BettingState",
@@ -145,25 +182,83 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "getMyBets",
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "matchIds",
 				"outputs": [
 					{
-						"components": [
-							{
-								"internalType": "uint256",
-								"name": "amount",
-								"type": "uint256"
-							},
-							{
-								"internalType": "enum FootballBetting.MatchOutcome",
-								"name": "team",
-								"type": "uint8"
-							}
-						],
-						"internalType": "struct FootballBetting.Bet[]",
+						"internalType": "uint8",
 						"name": "",
-						"type": "tuple[]"
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"name": "matches",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "id",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "homeTeam",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "awayTeam",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "score",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "isSettled",
+						"type": "bool"
+					},
+					{
+						"internalType": "enum FootballBetting.MatchOutcome",
+						"name": "winningOutcome",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint256",
+						"name": "totalPool",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "revealedWinningPool",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "commission",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "prizePool",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -171,7 +266,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "openBetting",
+				"name": "openCommitPhase",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -180,30 +275,78 @@
 				"inputs": [
 					{
 						"internalType": "uint8",
-						"name": "_matchId",
-						"type": "uint8"
-					},
-					{
-						"internalType": "enum FootballBetting.MatchOutcome",
-						"name": "_team",
+						"name": "matchId",
 						"type": "uint8"
 					}
 				],
-				"name": "placeBet",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "resetMatches",
+				"name": "openDistributionPhase",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
 				"inputs": [],
-				"name": "settleAllMatches",
+				"name": "openRevealPhase",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					},
+					{
+						"internalType": "enum FootballBetting.MatchOutcome",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"name": "outcomePool",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint8",
+						"name": "matchId",
+						"type": "uint8"
+					},
+					{
+						"internalType": "enum FootballBetting.MatchOutcome",
+						"name": "outcome",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "salt",
+						"type": "string"
+					}
+				],
+				"name": "revealBet",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -216,11 +359,7 @@
 		},
 		"userdoc": {
 			"kind": "user",
-			"methods": {
-				"settleAllMatches()": {
-					"notice": "The main settlement function for the owner. Iterates through all matches and settles any that have a score and are not already settled. This is the only function the owner needs to call to trigger all payouts."
-				}
-			},
+			"methods": {},
 			"version": 1
 		}
 	},
@@ -241,11 +380,11 @@
 	},
 	"sources": {
 		"server.sol": {
-			"keccak256": "0xe6aaeb743cd505479185a3d7512ae98d39d3f82c33155ade9c3cceab55364e2b",
+			"keccak256": "0x999532ad653942d4dc7d3763f81eb03802573b03d044c5d2dfd53a27a80407cc",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9dec06c4a8f911656e202e35aa152a383c38c297ac0e6feb39151118a4abe7db",
-				"dweb:/ipfs/QmPXDEBtJr5Vh15AyeZRgYunWxaawbaFVEy6Ko1XLArN7R"
+				"bzz-raw://885c659b25a6d1b7741722042e438db50be59248d7898fabc30b841b9b5d002b",
+				"dweb:/ipfs/QmXbQqEDb1KokGvuu8xrzjh3ihe3jTu8kjfC7DENTefXGK"
 			]
 		}
 	},

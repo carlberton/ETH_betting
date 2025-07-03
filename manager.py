@@ -56,13 +56,18 @@ class ManagerClient:
         print("Cela va analyser les scores, déterminer les gagnants et déclencher automatiquement les paiements.")
         self.send_tx(self.contract.functions.settleAllMatches())
 
-    def handle_open_betting(self, args):
-        print("\nEnvoi de la transaction pour OUVRIR les paris...")
-        self.send_tx(self.contract.functions.openBetting())
+    def handle_open_commit(self, args):
+        print("\nOuverture de la phase de commit...")
+        self.send_tx(self.contract.functions.openCommitPhase())
 
-    def handle_close_betting(self, args):
-        print("\nEnvoi de la transaction pour FERMER les paris...")
-        self.send_tx(self.contract.functions.closeBetting())
+    def handle_open_reveal(self, args):
+        print("\nOuverture de la phase de reveal...")
+        self.send_tx(self.contract.functions.openRevealPhase())
+
+    def handle_open_distribution(self, args):
+        print("\nOuverture de la phase de distribution...")
+        self.send_tx(self.contract.functions.openDistributionPhase(args.match_id))
+
 
     def handle_view_matches(self, args):
         print("\n--- Matchs du Jour ---")
@@ -95,12 +100,6 @@ if __name__ == "__main__":
     p_create.add_argument('num', type=int)
     p_create.set_defaults(func=manager.handle_create_matches)
 
-    p_bet = subparsers.add_parser('bet', help='Place a bet on a match.')
-    p_bet.add_argument('match_id', type=int)
-    p_bet.add_argument('outcome', type=int, choices=[0, 1, 2], help='0=Draw, 1=HomeWin, 2=AwayWin.')
-    p_bet.add_argument('amount', type=float, help='Amount in ETH.')
-    p_bet.set_defaults(func=manager.handle_place_bet)
-
     p_score = subparsers.add_parser('add_score', help="(Owner) Set a match's final score.")
     p_score.add_argument('match_id', type=int)
     p_score.add_argument('score', type=str, help="Score string, e.g., '2-1'. Must be single digits.")
@@ -108,11 +107,6 @@ if __name__ == "__main__":
 
     p_settle = subparsers.add_parser('settle_matches', help='(Owner) Settle all matches with scores.')
     p_settle.set_defaults(func=manager.handle_settle_matches)
-
-    p_open = subparsers.add_parser('open_betting', help='(Owner) Opens betting.')
-    p_open.set_defaults(func=manager.handle_open_betting)
-    p_close = subparsers.add_parser('close_betting', help='(Owner) Closes betting.')
-    p_close.set_defaults(func=manager.handle_close_betting)
     
     p_view = subparsers.add_parser('view_matches', help='View all matches and their betting pools.')
     p_view.set_defaults(func=manager.handle_view_matches)
@@ -122,5 +116,14 @@ if __name__ == "__main__":
 
     p_balance = subparsers.add_parser('balance', help='Get balance')
     p_balance.set_defaults(func=manager.handle_balance)
+    
+    p_commit = subparsers.add_parser('open_commit', help='(Owner) Ouvre la phase de commit.')
+    p_commit.set_defaults(func=manager.handle_open_commit)
+    p_reveal = subparsers.add_parser('open_reveal', help='(Owner) Ouvre la phase de reveal.')
+    p_reveal.set_defaults(func=manager.handle_open_reveal)
+    p_dist = subparsers.add_parser('open_distribution', help='(Owner) Ouvre la phase de distribution.')
+    p_dist.add_argument('match_id', type=int)
+    p_dist.set_defaults(func=manager.handle_open_distribution)
+
     args = parser.parse_args()
     args.func(args)
