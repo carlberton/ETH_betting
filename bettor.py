@@ -74,6 +74,7 @@ class BettorClient:
             tx_hash = self.w3.eth.send_raw_transaction(signed_tx.raw_transaction)
             print(f"  > Commit envoyé : {tx_hash.hex()}. En attente de confirmation...")
             receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
+            print(f"Gas utilisé : {receipt.gasUsed}")
             if receipt.status == 1:
                 print("  > Commit accepté !")
                 print(f"Gardez bien ce salt pour la révélation : {salt}")
@@ -97,6 +98,7 @@ class BettorClient:
             tx_hash = self.w3.eth.send_raw_transaction(signed_tx.raw_transaction)
             print(f"  > Reveal envoyé : {tx_hash.hex()}. En attente de confirmation...")
             receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
+            print(f"Gas utilisé : {receipt.gasUsed}")
             if receipt.status == 1:
                 print("  > Reveal accepté ! Si vous êtes gagnant, vous recevez votre gain.")
             else:

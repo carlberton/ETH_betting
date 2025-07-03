@@ -31,6 +31,7 @@ class ManagerClient:
             tx_hash = self.w3.eth.send_raw_transaction(signed.raw_transaction)
             print(f"  > Transaction envoyée : {tx_hash.hex()}. En attente de réception...")
             receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
+            print(f"Gas utilisé : {receipt.gasUsed}")
             if receipt.status == 1:
                 print(f"  > Succès ! Transaction confirmée dans le bloc {receipt.blockNumber}.")
             else:
