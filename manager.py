@@ -46,10 +46,6 @@ class ManagerClient:
             print(f"Soumission du match {i+1} : {home} vs {away}")
             self.send_tx(self.contract.functions.createMatch(i + 1, home, away))
 
-    def handle_place_bet(self, args):
-        print(f"\nPlacement d'un pari de {args.amount} ETH sur le match {args.match_id}, Résultat {args.outcome}...")
-        bet_amount_wei = self.w3.to_wei(args.amount, 'ether')
-        self.send_tx(self.contract.functions.placeBet(args.match_id, args.outcome), value=bet_amount_wei)
 
     def handle_add_score(self, args):
         print(f"\nDéfinition du score pour le match {args.match_id} à '{args.score}'")
