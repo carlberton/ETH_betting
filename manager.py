@@ -71,15 +71,12 @@ class ManagerClient:
 
     def handle_view_matches(self, args):
         print("\n--- Matchs du Jour ---")
-        all_matches = self.contract.functions.getAllMatches().call()
-        if not all_matches:
+        ids, homes, aways = self.contract.functions.getAllMatches().call()
+        if not ids:
             print("Aucun match trouvé.")
             return
-        for m in all_matches:
-            (match_id, home, away, score, total_home, total_away, total_draw, _, is_settled) = m
-            status = "Terminé" if is_settled else "Actif"
-            print(f"\nID: {match_id} | {home} vs {away} | Score: {score or 'À venir'} | Statut: {status}")
-            print(f"  Cagnottes (ETH): Domicile: {self.w3.from_wei(total_home, 'ether')}, Nul: {self.w3.from_wei(total_draw, 'ether')}, Extérieur: {self.w3.from_wei(total_away, 'ether')}")
+        for i in range(len(ids)):
+            print(f"ID: {ids[i]} | {homes[i]} vs {aways[i]}")
         print("\n--------------------")
 
     def handle_reset(self, args):

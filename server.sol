@@ -48,6 +48,22 @@ contract FootballBetting {
         currentBettingState = BettingState.Commit;
     }
 
+    // --- VUE DES MATCHS ---
+
+function getAllMatches() external view returns (
+        uint8[] memory, string[] memory, string[] memory
+    ) {
+        uint8[] memory ids = new uint8[](matchIds.length);
+        string[] memory homes = new string[](matchIds.length);
+        string[] memory aways = new string[](matchIds.length);
+        for (uint i = 0; i < matchIds.length; i++) {
+            ids[i] = matches[matchIds[i]].id;
+            homes[i] = matches[matchIds[i]].homeTeam;
+            aways[i] = matches[matchIds[i]].awayTeam;
+        }
+        return (ids, homes, aways);
+    }
+
     // --- PHASE MANAGEMENT ---
 
     function openCommitPhase() external onlyOwner {
@@ -183,4 +199,7 @@ function openDistributionPhase(uint8 matchId) external onlyOwner {
         away = awayDigit - 48;
         return (home, away, true);
     }
+    function getBettingState() external view returns (uint8) {
+        return uint8(currentBettingState);
+}
 }

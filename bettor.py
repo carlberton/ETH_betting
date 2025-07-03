@@ -25,22 +25,16 @@ class BettorClient:
         print("Connecté au contrat de pari.")
 
     def view_matches(self):
-        """Affiche tous les matchs disponibles et leur statut."""
+        """Affiche tous les matchs disponibles (id et équipes)."""
         print("\n--- Matchs du Jour ---")
         try:
-            all_matches = self.contract.functions.getAllMatches().call()
-            if not all_matches:
+            ids, homes, aways = self.contract.functions.getAllMatches().call()
+            if not ids:
                 print("Aucun match trouvé.")
                 return
-
-            for match_data in all_matches:
-                (match_id, home, away, score, total_home, total_away, total_draw, _, is_settled) = match_data
-                status = "Terminé" if is_settled else "Actif"
-                print(f"\nID: {match_id} | {home} vs {away} | Score: {score or 'À venir'} | Statut: {status}")
-                print(f"  Cagnottes (ETH): Domicile: {self.w3.from_wei(total_home, 'ether')}, Nul: {self.w3.from_wei(total_draw, 'ether')}, Extérieur: {self.w3.from_wei(total_away, 'ether')}")
-            
+            for i in range(len(ids)):
+                print(f"ID: {ids[i]} | {homes[i]} vs {aways[i]}")
             print("\n--------------------")
-
         except Exception as e:
             print(f"Erreur lors de la récupération des matchs : {e}")
 
@@ -49,7 +43,7 @@ class BettorClient:
         print("\n--- Statut des Paris ---")
         try:
             state_val = self.contract.functions.getBettingState().call()
-            betting_states = {0: "Ouverts", 1: "Fermés"}
+            betting_states = {0: "Commit", 1: "Reveal",2: "Distribution"}
             status_str = betting_states.get(state_val, "Inconnu")
             print(f"L'état global des paris est : {status_str}")
             print("------------------------")

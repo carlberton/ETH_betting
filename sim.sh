@@ -1,5 +1,12 @@
 #!/bin/bash
-
+get_balance() {
+    local val=$(echo "$1" | grep -i -oP '([0-9]+([.][0-9]+)?)\s*eth' | grep -oP '[0-9]+([.][0-9]+)?')
+    if [ -z "$val" ]; then
+        echo "0"
+    else
+        echo "$val"
+    fi
+}
 MANAGER="python3 manager.py"
 BETTOR="python3 bettor.py"
 
@@ -23,14 +30,7 @@ SALT1=$(openssl rand -hex 8)
 SALT2=$(openssl rand -hex 8)
 SALT3=$(openssl rand -hex 8)
 
-get_balance() {
-    local val=$(echo "$1" | grep -i -oP '([0-9]+([.][0-9]+)?)\s*eth' | grep -oP '[0-9]+([.][0-9]+)?')
-    if [ -z "$val" ]; then
-        echo "0"
-    else
-        echo "$val"
-    fi
-}
+
 
 echo "=== 1. Création du match ==="
 $MANAGER create 1

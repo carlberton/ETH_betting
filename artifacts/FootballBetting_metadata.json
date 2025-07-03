@@ -53,19 +53,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "uint8",
-						"name": "matchId",
-						"type": "uint8"
-					}
-				],
-				"name": "claim",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [],
 				"name": "commissionPercentage",
 				"outputs": [
@@ -174,6 +161,42 @@
 				"outputs": [
 					{
 						"internalType": "enum FootballBetting.BettingState",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getAllMatches",
+				"outputs": [
+					{
+						"internalType": "uint8[]",
+						"name": "",
+						"type": "uint8[]"
+					},
+					{
+						"internalType": "string[]",
+						"name": "",
+						"type": "string[]"
+					},
+					{
+						"internalType": "string[]",
+						"name": "",
+						"type": "string[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getBettingState",
+				"outputs": [
+					{
+						"internalType": "uint8",
 						"name": "",
 						"type": "uint8"
 					}
@@ -380,11 +403,11 @@
 	},
 	"sources": {
 		"server.sol": {
-			"keccak256": "0x999532ad653942d4dc7d3763f81eb03802573b03d044c5d2dfd53a27a80407cc",
+			"keccak256": "0xccea0864ab1b8c2e298f48ec6a2e6d29947570d17711a068c134d6335555afa9",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://885c659b25a6d1b7741722042e438db50be59248d7898fabc30b841b9b5d002b",
-				"dweb:/ipfs/QmXbQqEDb1KokGvuu8xrzjh3ihe3jTu8kjfC7DENTefXGK"
+				"bzz-raw://a0a675e0cbe14f07968817760e5aee1de6e2ac46f2a87d2823f40df01262d4c7",
+				"dweb:/ipfs/QmRGPKnh2mxXAmkDRwEykP6mNy56WWU4Hjro6hf4vtpntR"
 			]
 		}
 	},
