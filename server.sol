@@ -2,16 +2,16 @@
 pragma solidity ^0.8.19;
 
 contract FootballBetting {
-    address public owner;
-    uint8 public commissionPercentage;
+    address public owner; // Deployer Adress
+    uint8 public commissionPercentage;  
+ 
+    enum BettingState { Commit, Reveal, Distribution } // States of the betting 
+    BettingState public currentBettingState;           // Current states
 
-    enum BettingState { Commit, Reveal, Distribution }
-    BettingState public currentBettingState;
-
-    enum MatchOutcome { Draw, HomeWin, AwayWin }
+    enum MatchOutcome { Draw, HomeWin, AwayWin }       // Match outcomes
 
     modifier onlyOwner() {
-        require(msg.sender == owner, "Only owner");
+        require(msg.sender == owner, "Only owner");     // Modifier for deployer
         _;
     }
 

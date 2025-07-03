@@ -1,4 +1,2 @@
 +Optimize solidity code to consume less gas
-+Handle the game rules (no bettings on both teams for example )
-+Study how gas works, make graph on actual gas consumption compared to optimized version
-+Implement a full / large simulation using bash script 
++Comment code
