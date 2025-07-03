@@ -58,7 +58,7 @@ contract FootballBetting {
         currentBettingState = BettingState.Reveal;
     }
 
-    function openDistributionPhase(uint8 matchId) external onlyOwner {
+function openDistributionPhase(uint8 matchId) external onlyOwner {
     require(bytes(matches[matchId].score).length > 0, "Score not set");
     require(currentBettingState == BettingState.Reveal, "Not in reveal phase");
     (uint8 homeScore, uint8 awayScore, bool ok) = _parseScore(matches[matchId].score);
@@ -99,10 +99,22 @@ contract FootballBetting {
         uint256 prizeToSend = matches[matchId].prizePool;
         matches[matchId].prizePool = 0;
         payable(owner).transfer(prizeToSend);
+    } else if (revealedWinningPool > 0) {
+        // Distribution automatique aux gagnants
+        for (uint i = 0; i < betAddrs.length; i++) {
+            Commit storage c = commits[matchId][betAddrs[i]];
+            if (c.isWinner) {
+                uint256 payout = (c.amount * matches[matchId].prizePool) / revealedWinningPool;
+                c.claimed = true;
+                payable(betAddrs[i]).transfer(payout);
+            }
+        }
+        matches[matchId].isSettled = true;
+        matches[matchId].prizePool = 0;
     }
 
-    currentBettingState = BettingState.Distribution;
-}
+        currentBettingState = BettingState.Distribution;
+    }
 
     // --- PARIS ---
 
@@ -133,26 +145,6 @@ contract FootballBetting {
         c.revealed = true;
         c.revealedOutcome = outcome;
         outcomePool[matchId][outcome] += c.amount;
-    }
-
-    function claim(uint8 matchId) external {
-        require(currentBettingState == BettingState.Distribution, "Not distribution phase");
-        Commit storage c = commits[matchId][msg.sender];
-        Match storage m = matches[matchId];
-        require(c.amount > 0, "No commit");
-        require(c.revealed, "Not revealed");
-        require(!c.claimed, "Already claimed");
-
-        // Bloque tout claim si la cagnotte a été transférée au owner (aucun gagnant)
-        require(m.revealedWinningPool > 0, "No winner, prize already sent to owner");
-
-        if (c.isWinner && m.revealedWinningPool > 0) {
-            uint256 payout = (c.amount * m.prizePool) / m.revealedWinningPool;
-            c.claimed = true;
-            payable(msg.sender).transfer(payout);
-        } else {
-            c.claimed = true; // perdant ou non révélé
-        }
     }
 
     // --- ADMIN ---

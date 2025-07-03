@@ -68,12 +68,7 @@ $MANAGER add_score $MATCH_ID $MATCH_SCORE
 echo "=== 8. Phase de distribution ouverte ==="
 $MANAGER open_distribution $MATCH_ID
 
-echo "=== 9. Chaque parieur réclame son gain (claim) ==="
-$BETTOR claim $BETTOR_PRIV1 $MATCH_ID
-$BETTOR claim $BETTOR_PRIV2 $MATCH_ID
-$BETTOR claim $BETTOR_PRIV3 $MATCH_ID
-
-echo "=== 10. Soldes finaux ==="
+echo "=== 9. Soldes finaux ==="
 BAL1_AFTER=$($BETTOR balance $BETTOR_PRIV1)
 BAL2_AFTER=$($BETTOR balance $BETTOR_PRIV2)
 BAL3_AFTER=$($BETTOR balance $BETTOR_PRIV3)
@@ -90,13 +85,13 @@ GAIN1=$(awk "BEGIN {print $VAL1_AFTER - $VAL1_BEFORE}")
 GAIN2=$(awk "BEGIN {print $VAL2_AFTER - $VAL2_BEFORE}")
 GAIN3=$(awk "BEGIN {print $VAL3_AFTER - $VAL3_BEFORE}")
 
-echo "=== 11. Résumé des mises et résultats ==="
+echo "=== 10. Résumé des mises et résultats ==="
 echo "Parieur 1 : $BET1_AMT ETH sur 'domicile' (gagnant si score = domicile)"
 echo "Parieur 2 : $BET2_AMT ETH sur 'nul' (gagnant si score = nul)"
 echo "Parieur 3 : $BET3_AMT ETH sur 'extérieur' (gagnant si score = extérieur)"
 echo "Score final du match : $MATCH_SCORE"
 
-echo "=== 12. Résumé des gains/pertes ==="
+echo "=== 11. Résumé des gains/pertes ==="
 if (( $(echo "$GAIN1 > 0" | bc -l) )); then STATUS1="GAGNANT"; else STATUS1="PERDANT"; fi
 if (( $(echo "$GAIN2 > 0" | bc -l) )); then STATUS2="GAGNANT"; else STATUS2="PERDANT"; fi
 if (( $(echo "$GAIN3 > 0" | bc -l) )); then STATUS3="GAGNANT"; else STATUS3="PERDANT"; fi

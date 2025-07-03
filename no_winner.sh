@@ -71,12 +71,7 @@ $MANAGER add_score $MATCH_ID $MATCH_SCORE
 echo "=== 8. Phase de distribution ouverte ==="
 $MANAGER open_distribution $MATCH_ID
 
-echo "=== 9. Chaque parieur réclame son gain (claim) ==="
-$BETTOR claim $BETTOR_PRIV1 $MATCH_ID
-$BETTOR claim $BETTOR_PRIV2 $MATCH_ID
-$BETTOR claim $BETTOR_PRIV3 $MATCH_ID
-
-echo "=== 10. Soldes finaux ==="
+echo "=== 9. Soldes finaux ==="
 BAL1_AFTER=$($BETTOR balance $BETTOR_PRIV1)
 BAL2_AFTER=$($BETTOR balance $BETTOR_PRIV2)
 BAL3_AFTER=$($BETTOR balance $BETTOR_PRIV3)
@@ -95,13 +90,13 @@ GAIN2=$(awk "BEGIN {print $VAL2_AFTER - $VAL2_BEFORE}")
 GAIN3=$(awk "BEGIN {print $VAL3_AFTER - $VAL3_BEFORE}")
 GAIN_MANAGER=$(awk "BEGIN {print $VAL_MANAGER_AFTER - $VAL_MANAGER_BEFORE}")
 
-echo "=== 11. Résumé des mises et résultats ==="
+echo "=== 10. Résumé des mises et résultats ==="
 echo "Parieur 1 : $BET1_AMT ETH sur 'nul'"
 echo "Parieur 2 : $BET2_AMT ETH sur 'extérieur'"
 echo "Parieur 3 : $BET3_AMT ETH sur 'nul'"
 echo "Score final du match : $MATCH_SCORE (victoire domicile, donc aucun gagnant)"
 
-echo "=== 12. Résumé des gains/pertes ==="
+echo "=== 11. Résumé des gains/pertes ==="
 echo "Parieur 1 : $(printf '%+.6f' $GAIN1) ETH"
 echo "Parieur 2 : $(printf '%+.6f' $GAIN2) ETH"
 echo "Parieur 3 : $(printf '%+.6f' $GAIN3) ETH"

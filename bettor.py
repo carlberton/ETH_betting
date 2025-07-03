@@ -117,26 +117,6 @@ class BettorClient:
         balance = self.w3.eth.get_balance(address)
         print(f"Solde du compte {address} : {self.w3.from_wei(balance, 'ether')} ETH")
 
-    def claim(self, private_key, match_id):
-        try:
-            bettor_acct = self.w3.eth.account.from_key(private_key)
-            print(f"\nRéclamation pour le match {match_id}")
-            fn = self.contract.functions.claim(match_id)
-            tx = fn.build_transaction({
-                'from': bettor_acct.address,
-                'nonce': self.w3.eth.get_transaction_count(bettor_acct.address),
-                'value': 0
-            })
-            signed_tx = self.w3.eth.account.sign_transaction(tx, private_key=bettor_acct.key)
-            tx_hash = self.w3.eth.send_raw_transaction(signed_tx.raw_transaction)
-            print(f"  > Claim envoyé : {tx_hash.hex()}. En attente de confirmation...")
-            receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
-            if receipt.status == 1:
-                print("  > Claim accepté !")
-            else:
-                print("  > La transaction a échoué.")
-        except Exception as e:
-            print(f"Erreur lors du claim : {e}")
 def main():
     parser = argparse.ArgumentParser(description="Client commit-reveal pour FootballBetting.")
     subparsers = parser.add_subparsers(dest='command', help='Commandes disponibles', required=True)
@@ -162,11 +142,6 @@ def main():
     parser_balance = subparsers.add_parser('balance', help='Afficher le solde du compte.')
     parser_balance.add_argument('private_key', type=str, help="Votre clé privée Ethereum pour vérifier le solde.")
     parser_balance.set_defaults(func=lambda args, client: client.balance(args))
-
-    parser_claim = subparsers.add_parser('claim', help='Réclamer son gain pour un match.')
-    parser_claim.add_argument('private_key', type=str, help="Votre clé privée Ethereum pour signer la transaction.")
-    parser_claim.add_argument('match_id', type=int, help="L'ID du match.")
-    parser_claim.set_defaults(func=lambda args, client: client.claim(args.private_key, args.match_id))
     
     args = parser.parse_args()
     client = BettorClient()
