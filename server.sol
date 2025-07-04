@@ -93,9 +93,9 @@ function openDistributionPhase(uint8 matchId) external onlyOwner {
         winningOutcome = MatchOutcome.Draw;
     matches[matchId].winningOutcome = winningOutcome;
 
-    matches[matchId].totalPool = outcomePool[matchId][MatchOutcome.HomeWin] +
+    /*matches[matchId].totalPool = outcomePool[matchId][MatchOutcome.HomeWin] +
                                 outcomePool[matchId][MatchOutcome.AwayWin] +
-                                outcomePool[matchId][MatchOutcome.Draw];
+                                outcomePool[matchId][MatchOutcome.Draw];*/
 
     matches[matchId].commission = (matches[matchId].totalPool * commissionPercentage) / 100;
 
@@ -164,6 +164,7 @@ function openDistributionPhase(uint8 matchId) external onlyOwner {
         });
         // Adds the user's address to the list of bettors for this match.
         bettors[matchId].push(msg.sender);
+        matches[matchId].totalPool += msg.value;
     }
 
     function revealBet(uint8 matchId, MatchOutcome outcome, string calldata salt) external {
