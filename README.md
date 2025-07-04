@@ -32,11 +32,6 @@ pip install -r requirements.txt
 
 # Python scripts
 
-## Python venv
-python3 -m venv venv/
-. venv/bin/activate
-pip install -r requirements
-
 ## bettor.py
 python3 bettor.py -h 
 
