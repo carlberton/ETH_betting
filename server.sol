@@ -186,9 +186,9 @@ function openDistributionPhase(uint8 matchId) external onlyOwner {
         require(bytes(matches[_id].homeTeam).length == 0, "Match with this ID already exists");
         // Creates a new Match struct and adds it to the matches mapping
         matches[_id] = Match({
+            awayTeam: _away,
             id: _id,
             homeTeam: _home,
-            awayTeam: _away,
             score: "",
             winningOutcome: MatchOutcome.Draw,
             totalPool: 0,

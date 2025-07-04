@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.30+commit.73712a01"
+		"version": "0.8.26+commit.8a97fa7a"
 	},
 	"language": "Solidity",
 	"output": {
@@ -400,7 +400,7 @@
 		"compilationTarget": {
 			"server.sol": "FootballBetting"
 		},
-		"evmVersion": "prague",
+		"evmVersion": "cancun",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -413,11 +413,11 @@
 	},
 	"sources": {
 		"server.sol": {
-			"keccak256": "0xf6d430c1846cc711664ffe35e60ad3f32b7a90a77542c4600e50793e1c774918",
+			"keccak256": "0xb2ed1830ac593bdc611629fa4750168271162994770fc0121cab70a74ff82561",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d58712ba0444162b838e8a2b1858325ba3f81341d83daee81c38370e8cf25117",
-				"dweb:/ipfs/QmVe5SLreNUvaFrnWYGmibftHH2NyZwkSmybbuhfXeWyTH"
+				"bzz-raw://ada75f66e35e1f43371522c34b9ed5e5b677d544c4428a7f816377501119c5c6",
+				"dweb:/ipfs/QmfYM9NVKkyv4B8yQYDU87eARyZ2srcKTYnoTRCTdfNiub"
 			]
 		}
 	},
