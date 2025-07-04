@@ -11,6 +11,19 @@
 				"type": "constructor"
 			},
 			{
+				"inputs": [],
+				"name": "MIN_BET_AMOUNT",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint8",
@@ -400,11 +413,11 @@
 	},
 	"sources": {
 		"server.sol": {
-			"keccak256": "0x7075a4069fd4da823e4ca9c0210cd3e036bcdf4d0518acf943c963fa0f11c9de",
+			"keccak256": "0xf94a57a2ab94438bd1cae11bb079e44395bf8c6d766c85ef06f280a4ca5ebe09",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1bf994fc52560598c81f8ab1118324307e0fe0eb9d70a0fe9eab142e5db511f4",
-				"dweb:/ipfs/QmVPqzuru8srMTo4vJnr64WAFPBgv4nA5fVAEcrjQxch1w"
+				"bzz-raw://a7f5859c196cfe5efad3ba8d0ff662454303e91a450748c81228d04e456c815d",
+				"dweb:/ipfs/QmWSsqBS88macHzjUidR2m1DHiApHXFENJYR8eHryk5DcN"
 			]
 		}
 	},

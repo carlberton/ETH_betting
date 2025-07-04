@@ -67,7 +67,7 @@ function getAllMatches() external view returns (
         return (ids, homes, aways);
     }
 
-    // --- PHASE MANAGEMENT ---
+    // --- PHASE MANAGEMENT admin only ---
 
     function openCommitPhase() external onlyOwner {
         currentBettingState = BettingState.Commit;
@@ -146,9 +146,10 @@ function openDistributionPhase(uint8 matchId) external onlyOwner {
     }
 
     // --- BETTING FUNCTIONS ---
-
+    uint256 public constant MIN_BET_AMOUNT = 217 * 1e14; // 2,17×10^{-4} ETH = 0.000217 ETH
     function commitBet(uint8 matchId, bytes32 commitHash) external payable {
         require(currentBettingState == BettingState.Commit, "Not commit phase");
+        require(msg.value >= MIN_BET_AMOUNT, "Bet amount too low");
         require(msg.value > 0, "No ETH sent");
         require(commits[matchId][msg.sender].amount == 0, "Already committed");
         require(bytes(matches[matchId].homeTeam).length != 0, "Match does not exist");
