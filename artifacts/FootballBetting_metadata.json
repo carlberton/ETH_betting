@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.26+commit.8a97fa7a"
+		"version": "0.8.30+commit.73712a01"
 	},
 	"language": "Solidity",
 	"output": {
@@ -121,11 +121,6 @@
 					{
 						"internalType": "bool",
 						"name": "isWinner",
-						"type": "bool"
-					},
-					{
-						"internalType": "bool",
-						"name": "claimed",
 						"type": "bool"
 					}
 				],
@@ -254,11 +249,6 @@
 						"type": "string"
 					},
 					{
-						"internalType": "bool",
-						"name": "isSettled",
-						"type": "bool"
-					},
-					{
 						"internalType": "enum FootballBetting.MatchOutcome",
 						"name": "winningOutcome",
 						"type": "uint8"
@@ -352,6 +342,13 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "resetMatches",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint8",
@@ -390,7 +387,7 @@
 		"compilationTarget": {
 			"server.sol": "FootballBetting"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "prague",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -403,11 +400,11 @@
 	},
 	"sources": {
 		"server.sol": {
-			"keccak256": "0xccea0864ab1b8c2e298f48ec6a2e6d29947570d17711a068c134d6335555afa9",
+			"keccak256": "0x7075a4069fd4da823e4ca9c0210cd3e036bcdf4d0518acf943c963fa0f11c9de",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a0a675e0cbe14f07968817760e5aee1de6e2ac46f2a87d2823f40df01262d4c7",
-				"dweb:/ipfs/QmRGPKnh2mxXAmkDRwEykP6mNy56WWU4Hjro6hf4vtpntR"
+				"bzz-raw://1bf994fc52560598c81f8ab1118324307e0fe0eb9d70a0fe9eab142e5db511f4",
+				"dweb:/ipfs/QmVPqzuru8srMTo4vJnr64WAFPBgv4nA5fVAEcrjQxch1w"
 			]
 		}
 	},

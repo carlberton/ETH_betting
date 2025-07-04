@@ -159,7 +159,7 @@ function openDistributionPhase(uint8 matchId) external onlyOwner {
             amount: msg.value,
             revealed: false,
             revealedOutcome: MatchOutcome.Draw,    // Default value, will be updated on reveal.
-            isWinner: false,
+            isWinner: false
         });
         // Adds the user's address to the list of bettors for this match.
         bettors[matchId].push(msg.sender);
@@ -203,6 +203,30 @@ function openDistributionPhase(uint8 matchId) external onlyOwner {
         matches[_matchId].score = _score;
     }
 
+    function resetMatches() external onlyOwner {
+
+        for (uint i = 0; i < matchIds.length; i++) {
+            uint8 matchId = matchIds[i];
+
+            // Delete all bettors and their commits for this match
+            address[] storage betAddrs = bettors[matchId];
+            for (uint j = 0; j < betAddrs.length; j++) {
+                delete commits[matchId][betAddrs[j]];
+            }
+            delete bettors[matchId];
+
+            // Reset outcome pools
+            delete outcomePool[matchId][MatchOutcome.HomeWin];
+            delete outcomePool[matchId][MatchOutcome.AwayWin];
+            delete outcomePool[matchId][MatchOutcome.Draw];
+
+            // Delete the match itself
+            delete matches[matchId];
+        }
+        // Clear the matchIds array
+        delete matchIds;
+    }
+
     // --- UTILS ---
     // An internal function to parse a score string (e.g., "2-1") into two numbers.
     function _parseScore(string memory _score) private pure returns (uint8 home, uint8 away, bool success) {
@@ -218,5 +242,6 @@ function openDistributionPhase(uint8 matchId) external onlyOwner {
     // A view function to get the current betting state as a number.
     function getBettingState() external view returns (uint8) {
         return uint8(currentBettingState);
-}
+    }
+    
 }
