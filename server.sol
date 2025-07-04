@@ -181,7 +181,7 @@ function openDistributionPhase(uint8 matchId) external onlyOwner {
     }
 
     // --- ADMIN FUNCTIONS (Owner only) ---
-    function createMatch(uint8 _id, string memory _home, string memory _away) public onlyOwner {
+    function createMatch(uint8 _id, string memory _home, string memory _away) external onlyOwner {
         require(bytes(matches[_id].homeTeam).length == 0, "Match with this ID already exists");
         // Creates a new Match struct and adds it to the matches mapping
         matches[_id] = Match({
@@ -199,7 +199,7 @@ function openDistributionPhase(uint8 matchId) external onlyOwner {
         matchIds.push(_id);
     }
 
-    function addScore(uint8 _matchId, string memory _score) public onlyOwner {
+    function addScore(uint8 _matchId, string memory _score) external onlyOwner {
         require(bytes(matches[_matchId].homeTeam).length != 0, "Match does not exist");
         matches[_matchId].score = _score;
     }
